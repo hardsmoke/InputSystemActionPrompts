@@ -187,6 +187,22 @@ namespace InputSystemActionPrompts
         }
 
         /// <summary>
+        /// Gets all matching sprites (eg DualShock Cross Button Sprite) for the given input tag (eg "Player/Jump")
+        /// </summary>
+        /// <param name="inputTag"></param>
+        /// <returns></returns>
+        public static Sprite[] GetActionPathBindingSprites(string inputTag)
+        {
+            if (!s_Initialised) Initialise();
+            var (_, matchingPrompt) = GetActionPathBindingPromptEntries(inputTag);
+            Sprite[] sprites = new Sprite[matchingPrompt.Count];
+            for (i = 0; i < matchingPrompt.Count; i++)
+                sprites[i] = matchingPrompt[i].PromptSprite;
+            
+            return matchingPrompt != null && matchingPrompt.Count > 0 ? sprites : null;
+        }
+
+        /// <summary>
         /// Gets the current active device matching sprite in DeviceSpriteEntries list for the given sprite name
         /// </summary>
         /// <param name="spriteName"></param>
